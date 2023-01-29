@@ -1,0 +1,100 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+
+const int blackjack = 21;
+const int Alex_Stay = 17;
+
+bool check_wins(int player_score, int Alex_score)
+{
+    //when ever Alex win,return false.
+    //when ever player win,return true.
+    //when ever it's a tie,return false.
+
+    if (Alex_score > blackjack)
+    {
+        cout << "Alex has busted!" << endl;
+        return false;
+    }
+
+    else if (player_score > blackjack)
+    {
+       cout << "You have busted!" << endl;
+        return true;
+    }
+
+    else if (Alex_score > player_score)
+    {
+        cout << "Alex win!" << endl;
+        return true;
+    }
+
+    else if (Alex_score < player_score)
+    {
+        cout << "You win!" << endl;
+        return false;
+    }
+    else
+    {
+        cout << "it's a tie!" << endl;
+        return false;
+    }
+}
+//--------------------------------------//
+int main()
+{
+    srand(time(0));
+
+    char play_agine;
+
+    do
+    {
+        int player_score = 0;
+        int Alex_score = 0;
+        char choice;
+
+        player_score += rand() % 11 + 1;
+        Alex_score += rand() % 11 + 1;
+        player_score += rand() % 11 + 1;
+        Alex_score += rand() % 11 + 1;
+
+        cout << "You have been delta a : " << player_score << endl;
+        cout << "Alex has showing : " << Alex_score << endl;
+
+        while (true)
+        {
+            cout << "would you like to hit or stay? (h/s)" << endl;
+            cin >> choice;
+            if (choice == 'h')
+            {
+                player_score += rand() % 11 + 1;
+                cout << "you have been delta a : " << player_score << endl;
+            }
+            else if (choice == 's')
+            {
+                break;
+            }
+        }
+        while (Alex_score < Alex_Stay)
+        {
+            Alex_score += rand() % 11 + 1;
+        }
+
+        cout << "you have delta a : " << player_score << endl;
+
+        //Alex turn
+        while (Alex_score < Alex_Stay)
+        {
+            Alex_score += rand() % 11 + 1;
+        }
+
+        cout << "Alex showing :" << Alex_score << endl;
+
+        check_wins(player_score, Alex_score);
+
+        cout << "would you like to play agine? (y/n)";
+        cin >> play_agine;
+    } while (play_agine == 'y');
+
+    return 0;
+}
